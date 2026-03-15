@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- Título de la página -->
+    <title>Eremotherium en RA</title>
+    <!-- Importamos la librería de <model-viewer> desde su CDN -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <!-- Pequeños estilos para que ocupe toda la pantalla -->
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #111;
+            color: white;
+            font-family: sans-serif;
+        }
+        /* Hacemos que el visor ocupe toda la pantalla */
+        model-viewer {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Este es el componente mágico -->
+    <model-viewer
+        src="EremotheriumMC150326002.glb"  <!-- Aquí va el nombre de tu archivo -->
+        alt="Modelo 3D de un Eremotherium"
+        ar                                      <!-- Este atributo HABILITA LA REALIDAD AUMENTADA -->
+        ar-modes="webxr scene-viewer quick-look" <!-- Modos de RA: WebXR, Scene Viewer (Android) y Quick Look (iOS) -->
+        camera-controls                          <!-- Permite rotar y mover el modelo con el ratón o el dedo -->
+        auto-rotate                               <!-- El modelo gira solo al cargar la página (se ve bonito) -->
+        shadow-intensity="1"                      <!-- Intensidad de la sombra -->
+        exposure="0.8"                             <!-- Ajuste de exposición -->
+        style="background-color: #222;">           <!-- Color de fondo mientras carga -->
+         <!-- Este mensaje aparecerá si el navegador no soporta el elemento -->
+        <p style="text-align: center; position: absolute; bottom: 10px; width: 100%; color: white;" slot="poster">Tu navegador no soporta este visor.</p>
+    </model-viewer>
+</body>
+</html>
