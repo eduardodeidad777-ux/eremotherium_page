@@ -11,50 +11,19 @@
             height: 100%;
             margin: 0;
             padding: 0;
-            background-color: #222;
-            overflow: hidden;
+            background-color: #111;
+            color: white;
+            font-family: sans-serif;
         }
-        
         model-viewer {
             width: 100%;
             height: 100%;
-        }
-        
-        /* Instrucciones para PC */
-        .instructions {
-            position: absolute;
-            bottom: 30px;
-            left: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 40px;
-            font-size: 16px;
-            z-index: 100;
-            backdrop-filter: blur(5px);
-            border: 1px solid #4CAF50;
-            pointer-events: none;
-        }
-        
-        .instructions span {
-            color: #4CAF50;
-            font-weight: bold;
-        }
-        
-        @media (max-width: 768px) {
-            .instructions {
-                display: none;
-            }
+            border: none;
         }
     </style>
 </head>
 <body>
-    <!-- Instrucciones claras para PC -->
-    <div class="instructions">
-        🖱️ <span>Haz clic y arrastra</span> para rotar | <span>Rueda</span> para acercar
-    </div>
-
-    <!-- MODEL-VIEWER CORREGIDO -->
+    <!-- VISOR 3D COMPLETO -->
     <model-viewer
         src="EremotheriumMC150326002.glb"
         alt="Modelo 3D de un Eremotherium"
@@ -65,11 +34,10 @@
         shadow-intensity="1"
         exposure="0.8"
         style="background-color: #222;">
-        
-        <!-- Botón de RA opcional (más visible) -->
-        <button slot="ar-button" style="position: absolute; bottom: 30px; right: 20px; background-color: #4CAF50; color: white; padding: 15px 30px; border-radius: 50px; border: none; font-size: 18px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 100;">
-            📱 VER EN REALIDAD AUMENTADA
-        </button>
+    </model-viewer>
+    <!-- FIN DEL VISOR -->
+</body>
+</html>
     </model-viewer>
     <!-- CIERRE CORRECTO: NUNCA USES </img> -->
 </body>
