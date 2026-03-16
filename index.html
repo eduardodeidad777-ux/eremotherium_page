@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eremotherium en RA</title>
+    <title>Eremotherium - Vista</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
         html, body {
@@ -43,10 +43,9 @@
         🖱️ Arrastra para rotar | Rueda para zoom
     </div>
 
-    <!-- VISOR CON NUEVO MODELO EremotheriumMC150326004 -->
     <model-viewer
         src="EremotheriumMC150326004.glb"
-        alt="Eremotherium - Modelo 004"
+        alt="Eremotherium - Vista natural"
         ar
         ar-modes="quick-look scene-viewer webxr"
         ios-src="EremotheriumMC150326004.glb"
@@ -55,11 +54,17 @@
         shadow-intensity="2"
         exposure="1"
         environment-image="neutral"
-        style="background-color: #222;">
+        style="background-color: #222;"
         
-        <!-- Botón RA personalizado -->
+        <!-- ⬇️⬇️⬇️ CONTROL DE CÁMARA ⬇️⬇️⬇️ -->
+        camera-orbit="0deg 75deg 5m"     <!-- Ángulo: 75° (casi horizontal) -->
+        camera-target="0m 1m 0m"          <!-- Apunta al centro del cuerpo -->
+        min-camera-orbit="-180deg 20deg 2m"  <!-- Evita ángulos muy extremos -->
+        max-camera-orbit="180deg 90deg 10m">
+        
+        <!-- Botón RA -->
         <button slot="ar-button" style="position: absolute; bottom: 30px; right: 20px; background: #4CAF50; color: white; padding: 15px 30px; border-radius: 50px; border: none; font-size: 18px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 100;">
-            📱 VER EN REALIDAD AUMENTADA
+            📱 VER EN RA
         </button>
     </model-viewer>
 </body>
