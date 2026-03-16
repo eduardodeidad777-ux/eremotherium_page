@@ -3,24 +3,63 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eremotherium</title>
+    <title>Eremotherium en RA</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
-        body { margin: 0; padding: 0; }
-        model-viewer { width: 100vw; height: 100vh; }
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #111;
+            color: white;
+            font-family: sans-serif;
+        }
+        model-viewer {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .instructions {
+            position: absolute;
+            bottom: 30px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: #4CAF50;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            z-index: 100;
+            border: 1px solid #4CAF50;
+            pointer-events: none;
+        }
+        @media (max-width: 768px) {
+            .instructions { display: none; }
+        }
     </style>
 </head>
 <body>
-    <model-viewer 
+    <div class="instructions">
+        🖱️ Arrastra para rotar | Rueda para zoom
+    </div>
+
+    <!-- VISOR CON NUEVO MODELO EremotheriumMC150326004 -->
+    <model-viewer
         src="EremotheriumMC150326004.glb"
+        alt="Eremotherium - Modelo 004"
         ar
-        ar-placement="floor"
+        ar-modes="quick-look scene-viewer webxr"
+        ios-src="EremotheriumMC150326004.glb"
         camera-controls
         auto-rotate
+        shadow-intensity="2"
+        exposure="1"
+        environment-image="neutral"
         style="background-color: #222;">
         
-        <button slot="ar-button" style="position: absolute; bottom: 30px; right: 20px; background: #4CAF50; color: white; padding: 15px 30px; border-radius: 50px; border: none; font-size: 18px;">
-            📱 RA
+        <!-- Botón RA personalizado -->
+        <button slot="ar-button" style="position: absolute; bottom: 30px; right: 20px; background: #4CAF50; color: white; padding: 15px 30px; border-radius: 50px; border: none; font-size: 18px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 100;">
+            📱 VER EN REALIDAD AUMENTADA
         </button>
     </model-viewer>
 </body>
