@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eremotherium RA</title>
+    <title>Eremotherium en el suelo</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
         html, body {
@@ -43,36 +43,36 @@
         🖱️ Arrastra para rotar | Rueda para zoom
     </div>
 
-    <!-- VISOR CON MODELO PEGADO AL SUELO -->
+    <!-- VISOR CON MODELO 30cm MÁS ABAJO -->
     <model-viewer
         src="EremotheriumMC150326002.glb"
-        alt="Eremotherium - Ahora en el suelo"
+        alt="Eremotherium - 30cm más abajo"
         ar
-        ar-modes="scene-viewer quick-look webxr"
-        ar-placement="floor"                 <!-- CLAVE: Lo pega al suelo -->
-        ar-scale="fixed"                      <!-- Mantiene tamaño real -->
+        ar-modes="quick-look scene-viewer webxr"
+        ios-src="EremotheriumMC150326002.glb"
         camera-controls
         auto-rotate
-        shadow-intensity="2"                   <!-- Sombra más notoria -->
+        shadow-intensity="2"
         exposure="1"
         environment-image="neutral"
-        style="background-color: #222;">
+        style="background-color: #222;"
+        
+        <!-- ⬇️⬇️⬇️ ESTO BAJA EL MODELO 30cm ⬇️⬇️⬇️ -->
+        camera-target="0m -0.3m 0m"
+        interaction-prompt="none">
         
         <!-- Botón RA personalizado -->
         <button slot="ar-button" style="position: absolute; bottom: 30px; right: 20px; background: #4CAF50; color: white; padding: 15px 30px; border-radius: 50px; border: none; font-size: 18px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 100;">
-            📱 VER EN SUELO (RA)
+            📱 VER EN RA (30cm abajo)
         </button>
     </model-viewer>
 
     <script>
-        // Verificación de que todo funciona
         const viewer = document.querySelector('model-viewer');
-        console.log('Visor listo:', viewer);
+        console.log('Modelo configurado 30cm más abajo');
         
-        viewer.addEventListener('ar-status-changed', (e) => {
-            if (e.detail.status === 'session-started') {
-                console.log('🎯 RA activado - modelo debería estar en el suelo');
-            }
+        viewer.addEventListener('load', () => {
+            console.log('✅ Modelo listo - altura ajustada');
         });
     </script>
 </body>
