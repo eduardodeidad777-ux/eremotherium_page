@@ -43,13 +43,16 @@
         🖱️ Arrastra para rotar | Rueda para zoom
     </div>
 
-    <!-- VISOR CON NUEVO MODELO EremotheriumMC150326003 -->
+    <!-- VISOR CON MODELO PEGADO AL SUELO -->
     <model-viewer
         src="EremotheriumMC150326004.glb"
         alt="Eremotherium - Modelo 004"
         ar
         ar-modes="quick-look scene-viewer webxr"
         ios-src="EremotheriumMC150326004.glb"
+        ar-placement="floor"
+        ar-scale="fixed"
+        ar-hit-test="false"
         camera-controls
         auto-rotate
         shadow-intensity="2"
@@ -62,5 +65,6 @@
             📱 VER EN REALIDAD AUMENTADA
         </button>
     </model-viewer>
+    <!-- ⬆️⬆️⬆️ CIERRE CORRECTO: </model-viewer> - NUNCA USAR </img> ⬆️⬆️⬆️ -->
 </body>
 </html>
