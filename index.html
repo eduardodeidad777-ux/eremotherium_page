@@ -50,12 +50,9 @@
         ar
         ar-modes="quick-look scene-viewer webxr"
         ios-src="EremotheriumMC150326004.glb"
-        
-        <!-- ⬇️⬇️⬇️ ATRIBUTOS NUEVOS PARA PEGAR AL SUELO ⬇️⬇️⬇️ -->
         ar-placement="floor"
         ar-scale="fixed"
         ar-hit-test="false"
-        
         camera-controls
         auto-rotate
         shadow-intensity="2"
@@ -68,17 +65,6 @@
             📱 VER EN REALIDAD AUMENTADA
         </button>
     </model-viewer>
-
-    <script>
-        // Verificación de que todo funciona
-        const viewer = document.querySelector('model-viewer');
-        console.log('Visor listo - modelo debería pegarse al suelo');
-        
-        viewer.addEventListener('ar-status-changed', (e) => {
-            if (e.detail.status === 'session-started') {
-                console.log('🎯 RA activado - modelo forzado al suelo');
-            }
-        });
-    </script>
+    <!-- ⬆️⬆️⬆️ CIERRE CORRECTO: </model-viewer> NO USES </img> NUNCA ⬆️⬆️⬆️ -->
 </body>
 </html>
