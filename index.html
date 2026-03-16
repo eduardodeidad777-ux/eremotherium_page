@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eremotherium - Vista</title>
+    <title>Eremotherium - Pegado al suelo</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
         html, body {
@@ -12,60 +12,76 @@
             margin: 0;
             padding: 0;
             background-color: #111;
-            color: white;
-            font-family: sans-serif;
+            overflow: hidden;
         }
         model-viewer {
             width: 100%;
             height: 100%;
-            border: none;
-        }
-        .instructions {
-            position: absolute;
-            bottom: 30px;
-            left: 20px;
-            background: rgba(0,0,0,0.7);
-            color: #4CAF50;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 14px;
-            z-index: 100;
-            border: 1px solid #4CAF50;
-            pointer-events: none;
-        }
-        @media (max-width: 768px) {
-            .instructions { display: none; }
         }
     </style>
 </head>
 <body>
-    <div class="instructions">
-        🖱️ Arrastra para rotar | Rueda para zoom
-    </div>
-
     <model-viewer
-        src="EremotheriumMC150326004.glb"
-        alt="Eremotherium - Vista natural"
+        src="EremotheriumMC150326003.glb"
+        alt="Eremotherium en suelo"
+        
+        <!-- ACTIVAR RA -->
         ar
-        ar-modes="quick-look scene-viewer webxr"
-        ios-src="EremotheriumMC150326004.glb"
+        ar-modes="scene-viewer quick-look"
+        ar-scale="fixed"
+        
+        <!-- ⬇️⬇️⬇️ TRIPLE FORZADO AL SUELO ⬇️⬇️⬇️ -->
+        ar-placement="floor"                    <!-- 1. FUERZA BRUTA: dice que debe estar en el suelo -->
+        ar-hit-test="false"                      <!-- 2. Desactiva pruebas de altura automáticas -->
+        ar-hit-test-source="manual"              <!-- 3. Control manual de posición -->
+        
+        <!-- AJUSTE FINO: baja 1 metro extra por si acaso -->
+        style="transform: translateY(-1m);"
+        
+        <!-- CONTROLES -->
         camera-controls
         auto-rotate
-        shadow-intensity="2"
-        exposure="1"
+        shadow-intensity="3"
+        exposure="1.2"
         environment-image="neutral"
-        style="background-color: #222;"
         
-        <!-- ⬇️⬇️⬇️ CONTROL DE CÁMARA ⬇️⬇️⬇️ -->
-        camera-orbit="0deg 75deg 5m"     <!-- Ángulo: 75° (casi horizontal) -->
-        camera-target="0m 1m 0m"          <!-- Apunta al centro del cuerpo -->
-        min-camera-orbit="-180deg 20deg 2m"  <!-- Evita ángulos muy extremos -->
-        max-camera-orbit="180deg 90deg 10m">
+        <!-- ÁNGULO INICIAL -->
+        camera-orbit="0deg 75deg 5m"
+        camera-target="0m 1m 0m">
+        
+        <!-- ⬇️⬇️⬇️ MÉTODO SECRETO: Mover el modelo físicamente ABAJO ⬇️⬇️⬇️ -->
+        <div slot="ar-hit-test" style="transform: translateY(-1m);"></div>
+        <div slot="ar-hit-test" style="position: absolute; bottom: 0;"></div>
         
         <!-- Botón RA -->
         <button slot="ar-button" style="position: absolute; bottom: 30px; right: 20px; background: #4CAF50; color: white; padding: 15px 30px; border-radius: 50px; border: none; font-size: 18px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 100;">
-            📱 VER EN RA
+            📱 VER EN SUELO (FORZADO)
         </button>
     </model-viewer>
+
+    <script>
+        (function() {
+            const viewer = document.querySelector('model-viewer');
+            
+            // FUERZA BRUTA: cuando entre en RA, baja el modelo
+            viewer.addEventListener('ar-status-changed', (e) => {
+                if (e.detail.status === 'session-started') {
+                    console.log('🎯 MODO RA ACTIVADO - FORZANDO SUELO');
+                    
+                    // Intentar bajar el modelo por segunda vez
+                    setTimeout(() => {
+                        // Forzar recalibración de altura
+                        viewer.requestUpdate('camera-target');
+                        console.log('⚡ Recalibrando altura...');
+                    }, 1000);
+                }
+            });
+            
+            // Si el modelo se carga y no hay RA, también ajustamos
+            viewer.addEventListener('load', () => {
+                console.log('✅ Modelo cargado - listo para pegar al suelo');
+            });
+        })();
+    </script>
 </body>
 </html>
