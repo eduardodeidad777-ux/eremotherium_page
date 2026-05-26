@@ -34,6 +34,7 @@
             pointer-events: none;
         }
         
+        /* Ocultar el botón si el dispositivo no soporta RA */
         model-viewer:not([ar-status="not-present"]) #ar-button {
             display: block;
         }
@@ -48,14 +49,14 @@
 </head>
 <body>
     <div class="instructions">
-        📷 Toca VER EN RA | 🖱️ Arrastra para rotar
+        Ref: 🖱️ Arrastra para rotar | Rueda para zoom
     </div>
 
     <model-viewer
         src="EremotheriumMC150326004.glb"
         alt="Eremotherium - Modelo Fósil"
         ar
-        ar-modes="scene-viewer quick-look webxr"
+        ar-modes="scene-viewer webxr quick-look"
         ios-src="EremotheriumMC150326004.usdz"
         ar-placement="floor"
         ar-scale="fixed"
