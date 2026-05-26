@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eremotherium RA</title>
-    
-    <script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
-    
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
         html, body {
             width: 100%;
@@ -36,36 +34,30 @@
             pointer-events: none;
         }
         
-        /* Asegurar que el botón se vea */
-        #ar-button {
-            position: absolute; 
-            bottom: 30px; 
-            right: 20px; 
-            background: #4CAF50; 
-            color: white; 
-            padding: 15px 30px; 
-            border-radius: 50px; 
-            border: none; 
-            font-size: 18px; 
-            font-weight: bold; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
-            cursor: pointer; 
-            z-index: 100;
+        /* Ocultar el botón si el dispositivo no soporta RA */
+        model-viewer:not([ar-status="not-present"]) #ar-button {
+            display: block;
+        }
+        model-viewer[ar-status="not-present"] #ar-button {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .instructions { display: none; }
         }
     </style>
 </head>
 <body>
     <div class="instructions">
-        🖱️ Arrastra para rotar | Rueda para zoom
+        Ref: 🖱️ Arrastra para rotar | Rueda para zoom
     </div>
 
     <model-viewer
-        id="model"
         src="EremotheriumMC150326004.glb"
-        ios-src="EremotheriumMC150326004.usdz"
         alt="Eremotherium - Modelo Fósil"
         ar
-        ar-modes="scene-viewer webxr quick-look"
+        ar-modes="webxr scene-viewer quick-look"
+        ios-src="EremotheriumMC150326004.usdz"
         ar-placement="floor"
         ar-scale="fixed"
         camera-controls
@@ -75,7 +67,7 @@
         environment-image="neutral"
         style="background-color: #222;">
         
-        <button slot="ar-button" id="ar-button">
+        <button slot="ar-button" id="ar-button" style="position: absolute; bottom: 30px; right: 20px; background: #4CAF50; color: white; padding: 15px 30px; border-radius: 50px; border: none; font-size: 18px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 100;">
             📱 VER EN REALIDAD AUMENTADA
         </button>
     </model-viewer>
