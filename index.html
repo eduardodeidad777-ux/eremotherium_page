@@ -4,238 +4,71 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eremotherium RA</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-        }
-        
-        .card {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            padding: 40px 25px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        
-        h1 {
-            color: #4CAF50;
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-        
-        .subtitle {
-            color: #ccc;
-            font-size: 16px;
-            margin-bottom: 30px;
-        }
-        
-        .model-preview {
-            background: #222;
-            border-radius: 20px;
-            padding: 20px;
-            margin: 20px 0;
-            border: 1px solid #4CAF50;
-        }
-        
-        .model-preview img {
-            width: 100%;
-            max-width: 200px;
-            border-radius: 10px;
-        }
-        
-        .ar-button {
-            background: linear-gradient(135deg, #4CAF50, #2E7D32);
-            color: white;
-            border: none;
-            padding: 18px 30px;
-            font-size: 20px;
-            font-weight: bold;
-            border-radius: 60px;
-            width: 100%;
-            cursor: pointer;
-            margin: 15px 0;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-        }
-        
-        .ar-button:active {
-            transform: scale(0.97);
-        }
-        
-        .qr-button {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: 1px solid #4CAF50;
-            padding: 12px 20px;
-            font-size: 14px;
-            border-radius: 50px;
-            width: 100%;
-            cursor: pointer;
-            margin: 10px 0;
-        }
-        
-        .instructions {
-            margin-top: 20px;
-            font-size: 12px;
-            color: #aaa;
-        }
-        
-        .qr-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
+        html, body {
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.95);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
+            margin: 0;
+            padding: 0;
+            background-color: #111;
+            color: white;
+            font-family: sans-serif;
+        }
+        model-viewer {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .instructions {
+            position: absolute;
+            bottom: 30px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: #4CAF50;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            z-index: 100;
+            border: 1px solid #4CAF50;
+            pointer-events: none;
         }
         
-        .qr-modal.hidden {
+        model-viewer:not([ar-status="not-present"]) #ar-button {
+            display: block;
+        }
+        model-viewer[ar-status="not-present"] #ar-button {
             display: none;
         }
-        
-        .qr-modal img {
-            width: 250px;
-            height: 250px;
-            background: white;
-            padding: 20px;
-            border-radius: 20px;
-        }
-        
-        .close-btn {
-            margin-top: 30px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 30px;
-            border-radius: 30px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        
-        @media (max-width: 480px) {
-            .card { padding: 30px 20px; }
-            h1 { font-size: 24px; }
-            .ar-button { font-size: 18px; padding: 15px 25px; }
+
+        @media (max-width: 768px) {
+            .instructions { display: none; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <h1>🦥 EREMOTHERIUM</h1>
-            <div class="subtitle">Fósil Gigante - Realidad Aumentada</div>
-            
-            <div class="model-preview">
-                <img src="https://via.placeholder.com/200x150?text=Modelo+3D" alt="Preview">
-                <p style="margin-top: 10px; font-size: 12px;">Modelo 3D del Eremotherium</p>
-            </div>
-            
-            <!-- Botón principal de RA - Abre directamente Scene Viewer -->
-            <button class="ar-button" id="ar-launch">
-                📱 VER EN REALIDAD AUMENTADA
-            </button>
-            
-            <button class="qr-button" id="show-qr">
-                📲 COMPARTIR CÓDIGO QR
-            </button>
-            
-            <div class="instructions">
-                🔍 Apunta la cámara a una superficie plana (piso o mesa)<br>
-                📏 El modelo aparecerá a escala real
-            </div>
-        </div>
+    <div class="instructions">
+        📷 Toca VER EN RA | 🖱️ Arrastra para rotar
     </div>
-    
-    <div id="qr-modal" class="qr-modal hidden">
-        <div id="qr-code"></div>
-        <button class="close-btn" onclick="closeQR()">Cerrar</button>
-    </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-    <script>
-        // URL completa de tu página
-        const pageUrl = 'https://eduardodeidad777-ux.github.io/eremotherium_page/';
+
+    <model-viewer
+        src="EremotheriumMC150326004.glb"
+        alt="Eremotherium - Modelo Fósil"
+        ar
+        ar-modes="scene-viewer quick-look webxr"
+        ios-src="EremotheriumMC150326004.usdz"
+        ar-placement="floor"
+        ar-scale="fixed"
+        camera-controls
+        auto-rotate
+        shadow-intensity="1.5"
+        exposure="1"
+        environment-image="neutral"
+        style="background-color: #222;">
         
-        // URL del modelo
-        const modelUrl = 'https://eduardodeidad777-ux.github.io/eremotherium_page/EremotheriumMC150326004.glb';
-        
-        // Enlace directo a Scene Viewer (la app de Google)
-        const arIntent = intent://arvr.google.com/scene-viewer/1.0?file=${encodeURIComponent(modelUrl)}&mode=ar_preferred#Intent;scheme=https;package=com.google.android.googlequicksearchbox;end;;
-        
-        // Botón principal: Abrir RA directamente
-        document.getElementById('ar-launch').addEventListener('click', function() {
-            // Intentar abrir con intent (Scene Viewer)
-            window.location.href = arIntent;
-            
-            // Fallback: si no funciona, intentar con model-viewer en nueva pestaña
-            setTimeout(function() {
-                window.open(pageUrl + '?viewer', '_blank');
-            }, 500);
-        });
-        
-        // Generar QR
-        function generateQR() {
-            const qrContainer = document.getElementById('qr-code');
-            qrContainer.innerHTML = '';
-            new QRCode(qrContainer, {
-                text: pageUrl,
-                width: 250,
-                height: 250,
-                colorDark: '#000000',
-                colorLight: '#ffffff',
-                correctLevel: QRCode.CorrectLevel.H
-            });
-        }
-        
-        // Mostrar QR
-        document.getElementById('show-qr').addEventListener('click', function() {
-            const modal = document.getElementById('qr-modal');
-            modal.classList.remove('hidden');
-            generateQR();
-        });
-        
-        // Cerrar QR
-        window.closeQR = function() {
-            document.getElementById('qr-modal').classList.add('hidden');
-        }
-        
-        // Cerrar con ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeQR();
-        });
-        
-        // Detectar si es iOS
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-        if (isIOS) {
-            // Para iOS usar quick-look
-            document.getElementById('ar-launch').onclick = function() {
-                window.location.href = itms-services://?action=download-manifest&url=${modelUrl};
-            };
-        }
-    </script>
+        <button slot="ar-button" id="ar-button" style="position: absolute; bottom: 30px; right: 20px; background: #4CAF50; color: white; padding: 15px 30px; border-radius: 50px; border: none; font-size: 18px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 100;">
+            📱 VER EN REALIDAD AUMENTADA
+        </button>
+    </model-viewer>
 </body>
 </html>
