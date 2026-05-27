@@ -75,7 +75,7 @@
         
         modelViewer.addEventListener('load', () => {
             // Escala para vista en pantalla
-            modelViewer.scale = '3 3 3';
+            modelViewer.scale = '1 1 1';
         });
         
         modelViewer.addEventListener('ar-status-updated', (event) => {
@@ -83,7 +83,7 @@
                 setTimeout(() => {
                     const model = modelViewer.model;
                     if (model) {
-                        model.scale.set(6, 6, 6);
+                        model.scale.set(3, 3, 3);
                     }
                 }, 500);
             }
